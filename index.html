@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fernando Wahyu Syahendra - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@400;500;600;700;800&family=Syncopate:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['DM Mono', 'monospace'],
+                        display: ['Syncopate', 'sans-serif'],
+                    },
+                    colors: {
+                        'bg-main': '#050505',
+                        'text-primary': '#ffffff',
+                        'text-secondary': 'rgba(255, 255, 255, 0.55)',
+                        'text-muted': 'rgba(255, 255, 255, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* 3D Card Animations */
+        @keyframes swing {
+            0% {
+                transform: rotate(-3deg);
+            }
+
+            100% {
+                transform: rotate(3deg);
+            }
+        }
+
+        .swing-card {
+            transform-origin: center -500px;
+            /* Animation handled by JS physics now */
+        }
+
+        .card-3d {
+            transform: rotateY(-15deg) rotateX(10deg);
+            transform-style: preserve-3d;
+            box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5), -10px -10px 30px rgba(255, 255, 255, 0.05);
+            transition: transform 0.5s ease;
+        }
+
+        .card-3d:hover {
+            transform: rotateY(0deg) rotateX(0deg);
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) skewX(-15deg);
+            }
+
+            50%,
+            100% {
+                transform: translateX(200%) skewX(-15deg);
+            }
+        }
+
+        .animate-shine {
+            animation: shine 4s infinite;
+        }
+
+        @keyframes slideDown {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .animate-slide-down {
+            animation: slideDown 3s linear infinite;
+        }
+
+        /* Typewriter Cursor */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1em;
+            background-color: white;
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+            margin-left: 4px;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Background Grid */
+        .bg-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+
+<body class="antialiased font-sans bg-black relative selection:bg-white/30">
+
+    <!-- Floating Liquid Navbar -->
+    <div class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-3xl">
+        <nav class="flex items-center justify-between px-6 md:px-8 py-3 md:py-4 bg-black/40 backdrop-blur-xl border border-cyan-500/30 rounded-full shadow-[0_0_30px_rgba(0,255,255,0.1)] relative overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,255,255,0.2)] hover:border-cyan-400/50">
+            <!-- Liquid background glow -->
+            <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-400/10 to-purple-500/0 opacity-60 animate-shine pointer-events-none mix-blend-overlay"></div>
+            
+            <div class="text-cyan-400 font-display text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold relative z-10 drop-shadow-[0_0_8px_rgba(0,255,255,0.5)]">
+                fernando<span class="text-white">.dev</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-1 relative z-10 bg-white/5 p-1 rounded-full border border-white/5 backdrop-blur-md">
+                <a href="#home" class="px-5 py-2 rounded-full text-[9px] font-mono text-white/60 tracking-[0.2em] uppercase hover:text-cyan-100 hover:bg-cyan-500/30 hover:shadow-[0_0_15px_rgba(0,255,255,0.4)] transition-all duration-300">Home</a>
+                <a href="#about" class="px-5 py-2 rounded-full text-[9px] font-mono text-white/60 tracking-[0.2em] uppercase hover:text-cyan-100 hover:bg-cyan-500/30 hover:shadow-[0_0_15px_rgba(0,255,255,0.4)] transition-all duration-300">About</a>
+                <a href="#portfolio" class="px-5 py-2 rounded-full text-[9px] font-mono text-white/60 tracking-[0.2em] uppercase hover:text-cyan-100 hover:bg-cyan-500/30 hover:shadow-[0_0_15px_rgba(0,255,255,0.4)] transition-all duration-300">Portfolio</a>
+                <a href="#contact" class="px-5 py-2 rounded-full text-[9px] font-mono text-white/60 tracking-[0.2em] uppercase hover:text-cyan-100 hover:bg-cyan-500/30 hover:shadow-[0_0_15px_rgba(0,255,255,0.4)] transition-all duration-300">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Background Grid & Blobs -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none bg-grid">
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-[20%] w-[500px] h-[500px] rounded-full bg-white/5 blur-[120px]"></div>
+            <div class="absolute bottom-0 right-[20%] w-[400px] h-[400px] rounded-full bg-blue-500/10 blur-[120px]">
+            </div>
+        </div>
+    </div>
+
+    <main class="relative z-10">
+        <!-- 1. Home Section -->
+        <section id="home" class="px-6 md:px-16 lg:px-24 flex items-center min-h-screen relative overflow-hidden pt-20">
+            <div class="w-full max-w-[1500px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center h-full">
+
+                <!-- Left Side: Text & Typewriter -->
+                <div class="relative z-10 w-full pt-10 lg:pt-0">
+                    <!-- Status Badge -->
+                    <div class="mb-8 inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-900/10 backdrop-blur-md shadow-[0_0_15px_rgba(0,255,255,0.15)] relative overflow-hidden group cursor-default">
+                        <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-400/10 to-transparent translate-x-[-100%] group-hover:animate-shine"></div>
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(0,255,255,0.8)]"></span>
+                        <span class="font-mono text-[10px] text-cyan-300 tracking-[0.3em] uppercase font-bold drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]">SYS.STATUS: AVAILABLE</span>
+                    </div>
+
+                    <!-- Typewriter -->
+                    <div class="mb-8 min-h-[120px] md:min-h-[160px] flex items-center relative pl-4 md:pl-5">
+                        <!-- Decorative HUD line -->
+                        <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-cyan-400 via-purple-500 to-transparent rounded-full shadow-[0_0_10px_rgba(0,255,255,0.5)]"></div>
+                        
+                        <h1 class="text-[clamp(32px,5vw,70px)] font-display font-bold leading-[1.2] text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-cyan-400 tracking-tighter uppercase drop-shadow-[0_0_15px_rgba(0,255,255,0.3)]">
+                            <span id="typewriter"></span><span class="cursor !bg-cyan-400 shadow-[0_0_10px_rgba(0,255,255,1)] w-[8px] md:w-[12px] h-[clamp(30px,4vw,60px)] inline-block align-bottom ml-2"></span>
+                        </h1>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-10 w-full max-w-[500px]">
+                        <p class="text-sm md:text-base text-cyan-50/70 leading-[1.8] tracking-wide text-pretty border-l border-cyan-900/50 pl-4">
+                            Menciptakan website modern dengan tampilan clean, responsif, dan elegan. Mengubah ide dan
+                            desain menjadi pengalaman digital yang futuristik dan interaktif.
+                        </p>
+                    </div>
+
+                    <!-- Tech Badges -->
+                    <div class="flex flex-wrap gap-3 mb-12">
+                        <div class="group relative px-6 py-2.5 cursor-default">
+                            <div class="absolute inset-0 bg-cyan-950/40 border border-cyan-500/30 skew-x-[-15deg] group-hover:bg-cyan-900/60 group-hover:border-cyan-400 group-hover:shadow-[0_0_15px_rgba(0,255,255,0.3)] transition-all duration-300"></div>
+                            <span class="relative font-mono text-[10px] md:text-xs text-cyan-200 uppercase tracking-[0.2em] font-semibold drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]">PHP & Laravel</span>
+                        </div>
+                        <div class="group relative px-6 py-2.5 cursor-default">
+                            <div class="absolute inset-0 bg-purple-950/40 border border-purple-500/30 skew-x-[-15deg] group-hover:bg-purple-900/60 group-hover:border-purple-400 group-hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] transition-all duration-300"></div>
+                            <span class="relative font-mono text-[10px] md:text-xs text-purple-200 uppercase tracking-[0.2em] font-semibold drop-shadow-[0_0_5px_rgba(168,85,247,0.5)]">React Native</span>
+                        </div>
+                        <div class="group relative px-6 py-2.5 cursor-default">
+                            <div class="absolute inset-0 bg-pink-950/40 border border-pink-500/30 skew-x-[-15deg] group-hover:bg-pink-900/60 group-hover:border-pink-400 group-hover:shadow-[0_0_15px_rgba(236,72,153,0.3)] transition-all duration-300"></div>
+                            <span class="relative font-mono text-[10px] md:text-xs text-pink-200 uppercase tracking-[0.2em] font-semibold drop-shadow-[0_0_5px_rgba(236,72,153,0.5)]">Figma</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Links -->
+                    <div class="flex flex-col gap-3 font-mono text-[10px] md:text-[11px] text-cyan-500/60 uppercase tracking-widest">
+                        <div class="flex items-center gap-3 group cursor-pointer w-fit" onclick="document.getElementById('portfolio').scrollIntoView({behavior: 'smooth'})">
+                            <span class="animate-bounce inline-block text-cyan-400 group-hover:text-cyan-300">↓</span>
+                            <span class="group-hover:text-cyan-300 transition-colors">SYS.CMD: EXPLORE_MY_WORK</span>
+                        </div>
+                        <div class="flex items-center gap-3 group cursor-pointer w-fit" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                            <span class="text-purple-400 group-hover:text-purple-300">↗</span>
+                            <span class="group-hover:text-purple-300 transition-colors">NET.LINK: OPEN_TO_OPPORTUNITIES</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: 3D Floating Photo Card (Responsive) -->
+                <div class="relative z-10 hidden lg:flex justify-center items-center h-full perspective-[1200px] mt-10">
+                    <div id="lanyard-container" class="swing-card relative mt-32 cursor-grab active:cursor-grabbing">
+                        <!-- Lanyard (Sci-Fi Dark Strap) -->
+                        <div id="lanyard-string" class="absolute left-1/2 -translate-x-1/2 w-12 border-x-2 border-cyan-500/40 flex flex-col items-center justify-end overflow-hidden z-0 shadow-[0_0_20px_rgba(0,255,255,0.2)] bg-[#050505]" style="top: -500px; height: 500px;">
+                            <span class="text-[11px] font-display text-cyan-400 -rotate-90 whitespace-nowrap tracking-[0.4em] mb-40 z-10 font-bold drop-shadow-[0_0_8px_rgba(0,255,255,0.6)]">LEVEL 01 // ACCESS</span>
+                        </div>
+                        
+                        <div id="lanyard-card-wrapper" class="relative z-10">
+                            <!-- Cybernetic Clip/Hook -->
+                            <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-8 border-[2px] border-cyan-400/80 rounded-md z-10 bg-black shadow-[0_0_15px_rgba(0,255,255,0.5)] flex items-center justify-center">
+                                <div class="w-4 h-1 bg-cyan-400 shadow-[0_0_10px_rgba(0,255,255,1)]"></div>
+                            </div>
+
+                            <!-- Holographic ID Card Frame -->
+                            <div
+                            class="group w-[300px] h-[400px] bg-black/60 rounded-xl border-[2px] border-cyan-400 p-3 shadow-[0_0_50px_rgba(0,255,255,0.3)] relative overflow-hidden card-3d backdrop-blur-2xl z-20 transition-all duration-500 hover:shadow-[0_0_80px_rgba(0,255,255,0.5)] hover:border-cyan-300">
+                            
+                            <!-- Sci-Fi HUD Corners -->
+                            <div class="absolute top-2 left-2 w-5 h-5 border-t-2 border-l-2 border-cyan-400 transition-all duration-300 group-hover:scale-110 group-hover:border-cyan-300"></div>
+                            <div class="absolute top-2 right-2 w-5 h-5 border-t-2 border-r-2 border-cyan-400 transition-all duration-300 group-hover:scale-110 group-hover:border-cyan-300"></div>
+                            <div class="absolute bottom-2 left-2 w-5 h-5 border-b-2 border-l-2 border-cyan-400 transition-all duration-300 group-hover:scale-110 group-hover:border-cyan-300"></div>
+                            <div class="absolute bottom-2 right-2 w-5 h-5 border-b-2 border-r-2 border-cyan-400 transition-all duration-300 group-hover:scale-110 group-hover:border-cyan-300"></div>
+
+                            <!-- Blinking Status Dot -->
+                            <div class="absolute top-4 right-5 flex items-center gap-2 z-30 opacity-70 group-hover:opacity-100 transition-opacity">
+                                <span class="font-mono text-[8px] text-cyan-300 tracking-widest">ACTIVE</span>
+                                <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_rgba(0,255,255,1)]"></div>
+                            </div>
+
+                            <!-- Inner Photo Container -->
+                            <div class="w-full h-full rounded-lg overflow-hidden relative bg-[#050505] border border-cyan-900/60">
+                                <!-- User Photo -->
+                                <img src="assets/profile.jpeg" alt="Fernando"
+                                    class="w-full h-full object-cover transition-all duration-700">
+
+                                <!-- Holographic / Grid Overlay -->
+                                <div class="absolute inset-0 bg-gradient-to-tr from-cyan-600/10 via-purple-600/10 to-transparent mix-blend-screen opacity-30 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none"></div>
+                                <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 255, 0.2) 2px, rgba(0, 255, 255, 0.2) 4px);"></div>
+
+                                <!-- Information Bar -->
+                                <div
+                                    class="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/90 to-transparent p-5 text-center border-t border-cyan-500/20 backdrop-blur-sm">
+                                    <h3 class="font-display text-sm text-cyan-300 tracking-[0.3em] drop-shadow-[0_0_8px_rgba(0,255,255,0.6)]">FERNANDO</h3>
+                                    <p class="font-mono text-[9px] text-cyan-100/50 mt-2 tracking-widest">UID: 851.722.847</p>
+                                    <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent mt-3"></div>
+                                </div>
+                            </div>
+                            <!-- Sweeping Glass Shine -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-tr from-cyan-400/0 via-cyan-300/15 to-cyan-400/0 opacity-60 animate-shine pointer-events-none mix-blend-overlay">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div
+                class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex flex-col items-center gap-2 opacity-50">
+                <span class="font-mono text-[9px] tracking-widest uppercase">Scroll</span>
+                <span class="text-sm animate-bounce">↓</span>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="w-full max-w-[1500px] mx-auto px-6 md:px-12 lg:px-24 pt-32 pb-20 relative z-10">
+            <div class="mb-8">
+                <span class="font-mono text-[10px] text-text-muted tracking-[0.3em] uppercase">ABOUT ME</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-16 items-center mb-16">
+                <!-- Left Side -->
+                <div class="max-w-2xl">
+                    <h2
+                        class="text-4xl md:text-6xl lg:text-[70px] font-display font-bold leading-[1.1] mb-8 uppercase tracking-tighter text-white">
+                        Fernando<br>Wahyu<br>Syahendra
+                    </h2>
+                    <p class="text-sm md:text-base text-white/60 leading-relaxed mb-8">
+                        Lulusan S1 Teknik Informatika Universitas Kristen Petra (2020 - 2026) dengan passion di bidang
+                        full-stack development dan mobile app. Berfokus pada pembuatan website yang clean, responsif,
+                        dan fungsional untuk menghadirkan pengalaman digital yang optimal.
+                    </p>
+
+                    <div class="border border-white/10 rounded-2xl p-6 mb-10 bg-white/5 backdrop-blur-sm">
+                        <p class="text-sm italic text-white/70 font-sans">"Turning ideas into clean, modern, and
+                            meaningful digital experiences."</p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4">
+                        <a href="assets/cv.pdf" download="CV_Fernando.pdf"
+                            class="flex items-center gap-3 bg-white text-black px-6 py-3 rounded-xl font-semibold text-sm hover:bg-white/90 transition-colors">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24"
+                                height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9h-4V3H9v6H5l7 8zM4 19h16v2H4z"></path>
+                            </svg>
+                            Download CV
+                        </a>
+                        <a href="#portfolio"
+                            class="flex items-center gap-3 bg-transparent border border-white/20 text-white px-6 py-3 rounded-xl font-medium text-sm hover:bg-white/10 transition-colors">
+                            ↗ View Projects
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Side (Photo) -->
+                <div class="flex justify-center lg:justify-end">
+                    <div
+                        class="w-[280px] h-[280px] md:w-[350px] md:h-[350px] rounded-full overflow-hidden border border-white/10 p-1 bg-white/5 backdrop-blur-md relative">
+                        <img src="assets/profile.jpeg" alt="Fernando"
+                            class="w-full h-full object-cover rounded-full transition-all duration-700">
+                        <div
+                            class="absolute inset-0 rounded-full shadow-[inset_0_0_50px_rgba(0,0,0,0.8)] pointer-events-none">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Projects -->
+                <div
+                    class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex flex-col justify-between hover:bg-white/5 transition-colors h-[120px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-white/50 text-xl">
+                            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
+                                stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </span>
+                        <span class="font-display font-bold text-lg">3+</span>
+                    </div>
+                    <div class="flex justify-between items-end mt-4">
+                        <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-white/50">PROJECTS</span>
+                        <span class="text-white/30 text-xs">↗</span>
+                    </div>
+                </div>
+
+                <!-- Completed Works -->
+                <div
+                    class="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex flex-col justify-between hover:bg-white/5 transition-colors h-[120px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-white/50 text-xl">
+                            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
+                                stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                </path>
+                            </svg>
+                        </span>
+                        <span class="font-display font-bold text-lg">3+</span>
+                    </div>
+                    <div class="flex justify-between items-end mt-4">
+                        <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-white/50">COMPLETED
+                            WORKS</span>
+                        <span class="text-white/30 text-xs">↗</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Portfolio Section -->
+        <section id="portfolio" class="w-full max-w-[1450px] mx-auto px-6 md:px-12 lg:px-20 pt-24 pb-24 text-white">
+            <div class="text-center mb-10">
+                <h1 class="text-3xl md:text-5xl font-bold mb-3 font-display tracking-tight">Portfolio Showcase</h1>
+                <p class="text-white/55 max-w-xl mx-auto text-sm md:text-base">Explore my journey through projects,
+                    experience, and technical expertise.</p>
+            </div>
+
+            <div class="flex justify-center mb-12">
+                <div
+                    class="w-full max-w-3xl rounded-full border border-white/10 bg-white/5 p-1.5 flex gap-2 backdrop-blur-xl">
+                    <button class="tab-btn active flex-1 rounded-full py-3 text-sm font-medium"
+                        data-tab="projects">Projects</button>
+                    <button class="tab-btn flex-1 rounded-full py-3 text-sm font-medium"
+                        data-tab="experience">Experience</button>
+                    <button class="tab-btn flex-1 rounded-full py-3 text-sm font-medium" data-tab="tech">Tech
+                        Stack</button>
+                </div>
+            </div>
+
+            <div class="min-h-[400px]">
+                <!-- Projects Tab -->
+                <div id="projects" class="tab-content active">
+                    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <div
+                            class="glass-card rounded-[24px] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                            <div
+                                class="w-full h-[220px] bg-gradient-to-br from-blue-900 to-cyan-700 relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-6 relative z-10">
+                                <h3 class="text-xl font-semibold mb-2">Website Asset Management</h3>
+                                <p class="text-sm text-white/55 mb-6">A comprehensive web-based asset management system
+                                    with real-time tracking.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="text-[10px] text-white/70 bg-white/10 border border-white/10 px-3 py-1.5 rounded-full uppercase tracking-wider font-mono">PHP
+                                        & Laravel</span>
+                                    <span
+                                        class="text-[10px] text-white/70 bg-white/10 border border-white/10 px-3 py-1.5 rounded-full uppercase tracking-wider font-mono">SQL</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="glass-card rounded-[24px] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                            <div
+                                class="w-full h-[220px] bg-gradient-to-br from-emerald-800 to-teal-600 relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-6 relative z-10">
+                                <h3 class="text-xl font-semibold mb-2">Asset Management Apps</h3>
+                                <p class="text-sm text-white/55 mb-6">Mobile application companion for asset management
+                                    enabling on-the-go real-time tracking.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="text-[10px] text-white/70 bg-white/10 border border-white/10 px-3 py-1.5 rounded-full uppercase tracking-wider font-mono">React
+                                        Native</span>
+                                    <span
+                                        class="text-[10px] text-white/70 bg-white/10 border border-white/10 px-3 py-1.5 rounded-full uppercase tracking-wider font-mono">Expo</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="glass-card rounded-[24px] overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                            <div
+                                class="w-full h-[220px] bg-gradient-to-br from-purple-900 to-indigo-700 relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-6 relative z-10">
+                                <h3 class="text-xl font-semibold mb-2">BFP Company Profile</h3>
+                                <p class="text-sm text-white/55 mb-6">A modern and responsive company profile website developed for BFP.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="text-[10px] text-white/70 bg-white/10 border border-white/10 px-3 py-1.5 rounded-full uppercase tracking-wider font-mono">HTML & CSS</span>
+                                    <span
+                                        class="text-[10px] text-white/70 bg-white/10 border border-white/10 px-3 py-1.5 rounded-full uppercase tracking-wider font-mono">JS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Tab -->
+                <div id="experience" class="tab-content">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="glass-card rounded-[24px] p-8">
+                            <div class="mb-5">
+                                <h3 class="text-2xl font-bold text-white mb-2">IT Support</h3>
+                                <p class="text-sm font-mono text-white/50">Royal Regantris Hospitality | Mar 2025 - Mar
+                                    2026</p>
+                            </div>
+                            <ul class="list-disc list-inside text-sm text-white/70 space-y-3 mb-6 ml-1 leading-relaxed">
+                                <li>Maintained 99% system uptime for hotel IT infrastructure.</li>
+                                <li>Delivered responsive technical support across 10+ departments.</li>
+                                <li>Executed daily data backups and weekly system updates.</li>
+                                <li>Configured and deployed 20+ hardware devices (routers, switches).</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card rounded-[24px] p-8">
+                            <div class="mb-5">
+                                <h3 class="text-2xl font-bold text-white mb-2">Bachelor of Computer Science</h3>
+                                <p class="text-sm font-mono text-white/50">Universitas Kristen Petra | Jun 2020 - Jan
+                                    2026</p>
+                            </div>
+                            <p class="text-sm text-white/70 mb-6 leading-relaxed">
+                                Graduated with a GPA of 2.91/4.00. Built a strong foundation in software engineering,
+                                database management, and mobile application development.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech Stack Tab -->
+                <div id="tech" class="tab-content">
+                    <div class="flex flex-wrap justify-center gap-4 md:gap-6 max-w-4xl mx-auto">
+                        <!-- Next.js -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <img src="https://cdn.simpleicons.org/nextdotjs/white" alt="Next.js" class="w-[40px] h-[40px] group-hover:scale-110 transition-transform drop-shadow-md" />
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">Next.js</span>
+                        </div>
+                        <!-- Tailwind CSS -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-tailwindcss-original colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">Tailwind</span>
+                        </div>
+                        <!-- JavaScript -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-javascript-plain colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">JavaScript</span>
+                        </div>
+                        <!-- React Native -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-react-original colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">React Native</span>
+                        </div>
+                        <!-- HTML -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-html5-plain colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">HTML</span>
+                        </div>
+                        <!-- CSS -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-css3-plain colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">CSS</span>
+                        </div>
+                        <!-- PHP -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-php-plain colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">PHP</span>
+                        </div>
+                        <!-- Laravel -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-laravel-original colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">Laravel</span>
+                        </div>
+                        <!-- SQL (MySQL) -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-mysql-original colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">MySQL</span>
+                        </div>
+                        <!-- Python -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-python-plain colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">Python</span>
+                        </div>
+                        <!-- Java -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-java-plain colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">Java</span>
+                        </div>
+                        <!-- Kotlin -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-kotlin-plain colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">Kotlin</span>
+                        </div>
+                        <!-- Expo -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <img src="https://cdn.simpleicons.org/expo/white" alt="Expo" class="w-[40px] h-[40px] group-hover:scale-110 transition-transform drop-shadow-md" />
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">Expo</span>
+                        </div>
+                        <!-- Figma -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <i class="devicon-figma-plain colored text-[40px] group-hover:scale-110 transition-transform drop-shadow-md"></i>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">Figma</span>
+                        </div>
+                        <!-- UI/UX -->
+                        <div class="glass-card rounded-[20px] w-[100px] h-[100px] flex flex-col items-center justify-center gap-2 hover:bg-white/10 hover:-translate-y-1 transition-all group border border-white/5 bg-[#111]/80">
+                            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="w-[40px] h-[40px] text-pink-400 group-hover:scale-110 transition-transform drop-shadow-md" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                            <span class="text-[9px] font-mono tracking-wider text-white/70">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Contact Section -->
+        <section id="contact" class="w-full max-w-[1500px] mx-auto px-6 md:px-10 lg:px-20 pt-20 pb-24 text-white">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-6xl font-display font-bold mb-4 tracking-tighter">Contact Me</h1>
+                <p class="text-white/60 text-sm md:text-base max-w-2xl mx-auto">Have something in mind? Send a message
+                    and let's connect.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8">
+                <!-- Left: Info & Form -->
+                <div class="glass-card rounded-[32px] p-8 md:p-10">
+                    <h2 class="text-3xl font-bold mb-3">Hubungi Saya</h2>
+                    <p class="text-sm text-white/50 mb-8">Feel free to reach out if you want to collaborate, discuss
+                        ideas, or simply say hello.</p>
+
+                    <div class="space-y-4 mb-8">
+                        <input id="wa-name" type="text" placeholder="Your Name"
+                            class="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 outline-none focus:border-white/50 transition">
+                        <input id="wa-email" type="email" placeholder="Your Email"
+                            class="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 outline-none focus:border-white/50 transition">
+                        <textarea id="wa-message" rows="5" placeholder="Your Message"
+                            class="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 outline-none focus:border-white/50 transition resize-none"></textarea>
+                        <button onclick="sendWhatsApp()"
+                            class="w-full rounded-2xl py-4 bg-white text-black hover:bg-white/90 transition-all font-bold tracking-wide flex items-center justify-center gap-3">
+                            <span>SEND MESSAGE</span>
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512"
+                                height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 413.6c-33.2 0-65.6-8.9-94-25.7l-6.7-4-69.8 18.3L72 334.1l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Socials & Contact -->
+                <div class="glass-card rounded-[32px] p-8 md:p-10 h-full flex flex-col justify-center gap-4">
+                    <a href="https://wa.me/6285172284740" target="_blank"
+                        class="group flex items-center gap-5 p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
+                        <div
+                            class="w-14 h-14 rounded-full bg-[#25D366]/20 flex items-center justify-center text-[#25D366] text-2xl">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512"
+                                height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 413.6c-33.2 0-65.6-8.9-94-25.7l-6.7-4-69.8 18.3L72 334.1l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white group-hover:text-[#25D366] transition-colors">
+                                WhatsApp</h3>
+                            <p class="text-white/50 text-sm">085172284740</p>
+                        </div>
+                    </a>
+
+                    <a href="https://instagram.com/_fernando27" target="_blank"
+                        class="group flex items-center gap-5 p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
+                        <div
+                            class="w-14 h-14 rounded-full bg-[#E1306C]/20 flex items-center justify-center text-[#E1306C] text-2xl">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512"
+                                height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white group-hover:text-[#E1306C] transition-colors">
+                                Instagram</h3>
+                            <p class="text-white/50 text-sm">@_fernando27</p>
+                        </div>
+                    </a>
+
+                    <a href="https://tiktok.com/@_youwaimo" target="_blank"
+                        class="group flex items-center gap-5 p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
+                        <div
+                            class="w-14 h-14 rounded-full bg-[#00f2fe]/20 flex items-center justify-center text-white text-2xl">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512"
+                                height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0l88 0a121.18 121.18 0 0 0 1.86 22.17h0A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14Z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white group-hover:text-[#00f2fe] transition-colors">TikTok
+                            </h3>
+                            <p class="text-white/50 text-sm">_youwaimo</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active', 'bg-white/10', 'text-white'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    button.classList.add('active', 'bg-white/10', 'text-white');
+                    const tabId = button.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+
+        // Typewriter Effect
+        const words = ["Junior Programmer", "Freshgraduate"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typewriterElement = document.getElementById("typewriter");
+
+        function type() {
+            const currentWord = words[wordIndex];
+
+            if (isDeleting) {
+                charIndex--;
+            } else {
+                charIndex++;
+            }
+
+            typewriterElement.textContent = currentWord.substring(0, charIndex);
+
+            let typeSpeed = 100;
+
+            if (isDeleting) {
+                typeSpeed /= 2; // Delete faster
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                // Word is fully typed out, pause before deleting
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex++;
+                if (wordIndex >= words.length) {
+                    wordIndex = 0;
+                }
+                typeSpeed = 500; // Pause before typing next word
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // WhatsApp Integration
+        function sendWhatsApp() {
+            const name = document.getElementById('wa-name').value;
+            const message = document.getElementById('wa-message').value;
+
+            let text = "halo, saya mau konsultasi";
+
+            // Optionally include form details if user typed them
+            if (name || message) {
+                text += "%0A%0A"; // Newlines
+                if (name) text += "Nama: " + name + "%0A";
+                if (message) text += "Pesan: " + message;
+            }
+
+            window.open("https://wa.me/6285172284740?text=" + text, "_blank");
+        }
+
+        // Start typing effect on load
+        setTimeout(type, 1000);
+
+        // Lanyard Physics
+        const lanyard = document.getElementById('lanyard-container');
+        let cardAngle = 0;
+        let cardVelocity = 0;
+        let isDraggingCard = false;
+        let pivot = { x: 0, y: 0 };
+        
+        // Stretch effect variables
+        let cardStretch = 0;
+        let stretchVelocity = 0;
+        let targetStretch = 0;
+        let initialMouseDist = 0;
+
+        // Custom swing effect when not interacting
+        let autoSwingTime = 0;
+
+        function updatePivot() {
+            const rect = lanyard.getBoundingClientRect();
+            // The transform-origin is center -500px (top of the 500px string)
+            pivot.x = rect.left + rect.width / 2;
+            pivot.y = rect.top - 500;
+        }
+
+        window.addEventListener('resize', updatePivot);
+        setTimeout(updatePivot, 500); // init
+
+        lanyard.addEventListener('mousedown', (e) => {
+            isDraggingCard = true;
+            cardVelocity = 0;
+            stretchVelocity = 0;
+            updatePivot();
+            
+            let dx = e.clientX - pivot.x;
+            let dy = e.clientY - pivot.y;
+            initialMouseDist = Math.sqrt(dx * dx + dy * dy);
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDraggingCard) return;
+
+            let dx = e.clientX - pivot.x;
+            let dy = e.clientY - pivot.y;
+
+            // Calculate angle from straight down
+            let rad = Math.atan2(dx, dy);
+            cardAngle = rad * (180 / Math.PI);
+
+            // Limit the drag angle
+            if (cardAngle > 70) cardAngle = 70;
+            if (cardAngle < -70) cardAngle = -70;
+            
+            // Calculate pull stretch
+            let currentDist = Math.sqrt(dx * dx + dy * dy);
+            targetStretch = (currentDist - initialMouseDist) * 0.5; // Resistance factor
+            if (targetStretch < -30) targetStretch = -30; // Min push up
+            if (targetStretch > 150) targetStretch = 150; // Max pull down
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (isDraggingCard) {
+                isDraggingCard = false;
+                targetStretch = 0; // Snap back when released
+            }
+        });
+        
+        window.addEventListener('mouseleave', () => {
+            if (isDraggingCard) {
+                isDraggingCard = false;
+                targetStretch = 0;
+            }
+        });
+
+        // Physics loop
+        function animatePhysics() {
+            if (!isDraggingCard) {
+                // Pendulum restoring force
+                // If angle is positive (right), force is negative (pulling left)
+                let force = -0.06 * Math.sin(cardAngle * Math.PI / 180);
+
+                // Add slight auto-swing if it's almost still
+                if (Math.abs(cardAngle) < 0.5 && Math.abs(cardVelocity) < 0.05) {
+                    autoSwingTime += 0.02;
+                    force += Math.sin(autoSwingTime) * 0.005;
+                }
+
+                cardVelocity += force;
+                cardVelocity *= 0.985; // Damping/friction
+                cardAngle += cardVelocity;
+            }
+            
+            // Stretch spring physics
+            let stretchForce = (targetStretch - cardStretch) * 0.15;
+            stretchVelocity += stretchForce;
+            stretchVelocity *= 0.82; // Spring damping
+            cardStretch += stretchVelocity;
+
+            lanyard.style.transform = `rotate(${-cardAngle}deg)`; 
+            
+            // Update string and card separately for realistic stretch from the top
+            const stringEl = document.getElementById('lanyard-string');
+            const wrapperEl = document.getElementById('lanyard-card-wrapper');
+            if(stringEl && wrapperEl) {
+                stringEl.style.height = `${500 + cardStretch}px`;
+                wrapperEl.style.transform = `translateY(${cardStretch}px)`;
+            }
+            requestAnimationFrame(animatePhysics);
+        }
+        animatePhysics();
+
+    </script>
+</body>
+
+</html>
